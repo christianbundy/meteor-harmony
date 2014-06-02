@@ -1,4 +1,6 @@
-var path = Npm.require("path");
+var traceurVersion = {
+  'traceur': '0.0.42'
+};
 
 Package.describe({
   summary: "JavaScript.next-to-JavaScript-of-today compiler",
@@ -11,14 +13,13 @@ Package._transitional_registerBuildPlugin({
   sources: [
     "plugin/compile-harmony.js"
   ],
-  npmDependencies: {"traceur": "0.0.42"}
+  npmDependencies: traceurVersion
 });
 
-Package.on_use(function(api) {
-  // The location of this runtime file is not supposed to change:
-  // http://git.io/B2s0Tg
-  var dir = ".npm/plugin/compileHarmony/node_modules/traceur/bin/";
-  api.add_files(path.join(dir, "traceur-runtime.js"));
+Npm.depends(traceurVersion);
+
+Package.on_use(function (api) {
+  api.add_files(Npm.require('traceur').RUNTIME_PATH);
 });
 
 // Issue #7 reminder
