@@ -19,12 +19,9 @@ Package._transitional_registerBuildPlugin({
 Package.on_use(function (api) {
   // The location of this runtime file is not supposed to change:
   // http://git.io/B2s0Tg
+  api.use('exports');
   var dir = ".npm/plugin/compileHarmony/node_modules/traceur/bin/";
-  api.add_files([
-    path.join(dir, "traceur-runtime.js"),
-    'lib/moduleExports.js'
-  ]);
-  api.export('module');
+  api.add_files(path.join(dir, "traceur-runtime.js"));
 });
 
 Package.on_test(function (api) {
